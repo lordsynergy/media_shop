@@ -21,13 +21,18 @@ collection = ProductCollection.from_dir(File.dirname(__FILE__) + '/data')
 # класса ProductCollection
 collection.sort!(by: :amount, order: :asc)
 
-purchase = Shop.new(collection)
+shop = Shop.new(collection)
 
 loop do
-  purchase.price_list
+  puts "Что хотите купить:"
+  shop.price_list
+  puts "0. Выход"
   user_input = STDIN.gets.to_i - 1
   break if user_input == -1
-  purchase.buy_product(user_input)
+  puts "\nВы выбрали: #{shop.buy_product(user_input)}"
+  puts "\nВсего товаров на сумму - #{shop.sum_price}\n\n"
 end
 
-puts purchase.to_s
+puts "Вы купили:\n\n"
+puts shop.purchases
+puts "\nС Вас - #{shop.sum_price} руб. Спасибо за покупку!"
